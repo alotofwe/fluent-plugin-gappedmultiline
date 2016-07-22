@@ -45,8 +45,8 @@ class Fluent::TextParser
       true
     end
 
-    def firstline?(line, formats)
-      Regexp.new(formats[0]) === line
+    def firstline?(line)
+      Regexp.new(@formats[0]) === line
     end
   end
 end
