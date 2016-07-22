@@ -24,15 +24,17 @@ class Fluent::TextParser
 
       @formats.each do |orig_format|
         format = orig_format.gsub(/\\k<(.*?)>/) { |_| record[$1] }
+
         regexp = Regexp.new(/#{format}/)
         matched = @line_buffer.match(regexp)
         return yield nil, nil if matched.nil?
         matched.names.each { |name| record[name] = matched[name] }
         regexps << regexp
       end
+
       regexps.each { |regexp| @line_buffer.sub!(regexp, '') }
       refresh_line_buffer
-      yield Engine.now, record
+      yield Fluent::Engine.now, record
     end
 
     def refresh_line_buffer
