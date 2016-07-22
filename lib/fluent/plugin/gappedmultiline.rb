@@ -23,7 +23,7 @@ class Fluent::TextParser
       regexps = []
 
       @formats.each do |orig_format|
-        format = orig_format.gsub(/\\k<(.*?)>/) { |match| record[$1] }
+        format = orig_format.gsub(/\\k<(.*?)>/) { |_| record[$1] }
         regexp = Regexp.new(/#{format}/)
         matched = @line_buffer.match(regexp)
         return yield nil, nil if matched.nil?
