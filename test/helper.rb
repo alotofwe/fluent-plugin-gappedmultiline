@@ -1,5 +1,6 @@
 require 'fluent/plugin/gappedmultiline'
 require 'fluent/test'
+require 'fluent/test/helpers'
 
 class Test::Unit::TestCase
   def create_driver conf = {}
@@ -22,3 +23,5 @@ class Fluent::Test::ParserTestDriver
     @instance.firstline?(line, formats)
   end
 end
+
+include Fluent::Test::Helpers
