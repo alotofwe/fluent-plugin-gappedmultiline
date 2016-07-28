@@ -3,6 +3,8 @@ require 'fluent/parser'
 class Fluent::TextParser
   class GappedMultilineParser < MultilineParser
 
+    # 謎のバグ
+    # コメント In しなきゃダメ
     # Plugin.register_parser("gapped_multiline", self)
     config_param :parser_buffer_limit, :integer, :default => 1000
 
