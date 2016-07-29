@@ -1,5 +1,23 @@
 require 'fluent/parser'
 
+module Fluent
+  module Plugin
+    class MultilineParser < Parser
+      def check_format_regexp(format, key)
+        if format[0] == '/' && format[-1] == '/'
+          begin
+            Regexp.new(format[1..-2], Regexp::MULTILINE)
+          rescue => e
+            raise ConfigError, "Invalid regexp in #{key}: #{e}"
+          end
+        else
+          raise ConfigError, "format should be Regexp, need //, in #{key}: '#{format}'"
+        end
+      end
+    end
+  end
+end
+
 class Fluent::TextParser
   class GappedMultilineParser < MultilineParser
 
@@ -52,3 +70,5 @@ class Fluent::TextParser
     end
   end
 end
+
+
